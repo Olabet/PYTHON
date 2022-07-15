@@ -1,42 +1,42 @@
+import pygame
 
-import email
-import smtplib
-import ssl
+pygame.init()
+bounds = (300,300)
+window = pygame.display.set_mode(bounds)
+pygame.display.set_caption("Snake")
+block_size = 20
+snake = Snake(block_size, bounds)
 
-from email.mime.base import MIMEBase 
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from enum import Enum
 
-subject="An email with attachment from python"
-body="This is an email with attachment sent from python"
-sender_email="oladejibetty@gmail.com"
-receiver_email="oladejiclare@gmail.com"
-password=input("vubjqlucbagywliu")
+class Direction(Enum):
+  UP = 0
+  DOWN = 1
+  LEFT = 2
+  RIGHT = 3
 
-message=MIMEMultipart()
-message["From"]=sender_email
-message["To"]=receiver_email
-message["Subject"]=subject
-message["Bcc"]=receiver_email
+class Snake:
+  length = None
+  direction = None
+  body = None
+  block_size = None
+  color = (0,0,255)
+  bounds = None
 
-message.attach(MIMEText(body,"plain"))
+  def __init__(self, block_size, bounds):
+    self.block_size = block_size
+    self.bounds = bounds
+    self.respawn()
 
-filename="document.pdf"
+  def respawn(self):
+    self.length = 3
+    self.body = [(20,20),(20,40),(20,60)]
+    self.direction = Direction.DOWN
+    
+def draw(self, game, window):
+    for segment in self.body:
+        game.draw.rect(window, self.color, (segment[0],segment[1],self.block_size, self.block_size))
+    
 
-part=MIMEBase("application","octet-stream")
-part.set_payload(attachment.read())
 
-encoders.encode_base64(part)
-
-part.add.header("content-Disposition",
-f"attachment;filename={filename}",
-)
-
-message.attach(part)
-text=message.as_string()
-
-context=ssl.create_default_context()
-with smtplib.SMTP_SSL("smtp.gmail.com",465,context=context)as server:
-    server.login(sender_email,password)
-    server.sendmail(sender_email,
-receiver_email, text)
+  
